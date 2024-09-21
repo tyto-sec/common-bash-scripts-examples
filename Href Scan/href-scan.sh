@@ -5,9 +5,11 @@ then
 	echo "Parsing HTML"
 	echo "Example: $0 google.com.br"
 else
-    echo "\nHosts:\n"
+    echo -e "\nHosts:\n"
 
-    curl -s $1 | grep -oP 'href="\Khttps?://[^"]*' | sed 's~https\?://~~' | cut -d':' -f 1 | cut -d'/' -f 1 > temp
+    curl -s -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36" $1 \
+        | grep -oP 'href="\Khttps?://[^"]*' | sed 's~https\?://~~' | cut -d':' -f 1 | cut -d'/' -f 1 > temp
+    
     for host in $(cat temp)
     do  
         if echo "$host" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$'; then
@@ -22,5 +24,6 @@ else
             fi
         fi
     done
-    echo "\n"
+    echo -e "\n"
+    rm temp
 fi
