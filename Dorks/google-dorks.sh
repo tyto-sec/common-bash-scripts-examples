@@ -1,3 +1,7 @@
+if [ -z "$1" ]; then
+    echo "Google Dorks"
+    echo "Example: $0 www.domain.com"
+
 #!/bin/bash
 SEARCH="firefox"
 TARGET="$1"
